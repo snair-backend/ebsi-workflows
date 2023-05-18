@@ -1,4 +1,4 @@
-name: Build Dotnet Core Project
+name: Run BPF
 
 on:
   pull_request:
@@ -28,8 +28,8 @@ jobs:
     steps:
     - name: Checkout branch
       uses: actions/checkout@v3
-
-    - name: Merge pull request
-      uses: pascalgn/automerge-action@v0.11.0
+      
+    - name: actions/github-scripts@v4
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          console.log('BPF ran successfully!!')

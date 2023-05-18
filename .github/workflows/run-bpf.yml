@@ -33,7 +33,7 @@ jobs:
       uses: actions/checkout@v3
       
     - name: Run BPF
-      uses: actions/github-scripts@v4
+      uses: actions/github-script@v6 
       with:
         script: |
           console.log('BPF ran successfully!!')

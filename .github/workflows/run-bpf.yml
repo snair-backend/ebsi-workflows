@@ -24,9 +24,6 @@ jobs:
       (github.event.pull_request.base.ref == 'staging' && 
       contains(github.event.pull_request.reviews.nodes[*].author.login, 'ebsi-snair') &&
       github.event.pull_request.reviews.nodes[0].state == 'APPROVED')
-    
-    concurrency:
-      group: ${{ github.ref }}
 
     steps:
     - name: Checkout branch

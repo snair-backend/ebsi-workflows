@@ -32,7 +32,8 @@ jobs:
     - name: Checkout branch
       uses: actions/checkout@v3
       
-    - name: actions/github-scripts@v4
+    - name: Run BPF
+      uses: actions/github-scripts@v4
       with:
         script: |
           console.log('BPF ran successfully!!')

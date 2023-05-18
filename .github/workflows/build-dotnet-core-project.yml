@@ -19,9 +19,8 @@ jobs:
       (github.event.pull_request.base.ref == 'qa' && 
       github.event.pull_request.reviews.nodes[0].state == 'APPROVED') ||
       (github.event.pull_request.base.ref == 'staging' && 
-      contains(github.event.pull_request.reviews.nodes[*].author.teams.nodes[*].slug, 'qa') &&
-      github.event.pull_request.reviews.nodes[0].state == 'APPROVED') &&
-      github.event.changes != null
+      contains(github.event.pull_request.reviews.nodes[*].author.login, 'ebsi-snair') &&
+      github.event.pull_request.reviews.nodes[0].state == 'APPROVED')
     
     concurrency:
       group: ${{ github.ref }}
@@ -30,18 +29,7 @@ jobs:
     - name: Checkout branch
       uses: actions/checkout@v3
 
-    - name: Cache dependencies
-      uses: actions/cache@v3
+    - name: Merge pull request
+      uses: pascalgn/automerge-action@v0.11.0
       with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-nuget-
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-
-    - name: Build
-      run: dotnet build --configuration  Release
+        github-token: ${{ secrets.GITHUB_TOKEN }}

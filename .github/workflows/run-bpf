@@ -7,6 +7,9 @@ on:
       - unassigned
       - review_requested
       - ready_for_review
+      - edited
+      - reopened
+      - review_request_removed
     branches: [ '*' ]
     
   

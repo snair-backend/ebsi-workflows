@@ -3,13 +3,15 @@ name: Run BPF
 on:
   pull_request:
     types:
+      - opened 
+      - edited
+      - reopened      
       - assigned
       - unassigned
       - review_requested
       - ready_for_review
-      - edited
-      - reopened
       - review_request_removed
+      - synchronize     
     branches: [ '*' ]
     
   

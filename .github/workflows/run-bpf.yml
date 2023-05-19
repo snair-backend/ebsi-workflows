@@ -28,18 +28,34 @@ jobs:
   bpf:
     runs-on: ubuntu-latest
     
-    if: >
-      github.event.pull_request.base.ref == 'develop' ||
-      (github.event.pull_request.base.ref == 'qa' && 
-      github.event.review.state == 'approved') ||
-      (github.event.pull_request.base.ref == 'staging' && 
-      github.event.review.state == 'approved')
-
     steps:
     - name: Checkout branch
       uses: actions/checkout@v3
       
+    - name: Check approval
+      id: review_approval
+      run: |
+        PR_NUM=${{ github.event.pull_request.number }}
+        RESPONSE=$(curl --request GET \
+          --url "https://api.github.com/repos/${{ github.repository }}/pulls/${PR_NUM}/reviews" \
+          --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          --header "Accept: application/vnd.github.v3+json")
+          
+        APPROVED=$(echo "$RESPONSE" | jq 'map(select(.state == "APPROVED")) | length')
+      
+        if [[ $APPROVED -gt 0 ]]; then
+          echo "::set-output name=pr_approved::true"
+        else
+          echo "::set-output name=pr_approved::false"
+        fi
+      
     - name: Run BPF
+      if: >
+        github.event.pull_request.base.ref == 'develop' ||
+        (github.event.pull_request.base.ref == 'qa' && 
+        steps.review_approval.outputs.pr_approved == 'true') ||
+        (github.event.pull_request.base.ref == 'staging' && 
+        steps.review_approval.outputs.pr_approved == 'true')
       uses: actions/github-script@v6 
       with:
         script: |

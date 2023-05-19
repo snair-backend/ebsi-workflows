@@ -33,7 +33,6 @@ jobs:
       (github.event.pull_request.base.ref == 'qa' && 
       github.event.review.state == 'approved') ||
       (github.event.pull_request.base.ref == 'staging' && 
-      contains(github.event.pull_request.reviews.nodes[*].author.login, 'ebsi-snair') &&
       github.event.review.state == 'approved')
 
     steps:

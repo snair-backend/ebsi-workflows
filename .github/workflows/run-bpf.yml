@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Dump GitHub context
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+          GITHUB_CONTEXT: ${{ toJSON(context) }}
         run: echo "$GITHUB_CONTEXT"
       - run: echo ${{ github.event.review.state }}
       

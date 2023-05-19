@@ -17,30 +17,13 @@ on:
   
 jobs:
   debug:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Webhook
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const prNumber = context.payload.pull_request.number;
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            
-            const response = await octokit.pulls.listReviews({
-              owner: owner,
-              repo: repo,
-              pull_number: prNumber
-            });
-            
-            console.log(response.data);
-            
-      
-#       - name: Dump GitHub context
-#         env:
-#           GITHUB_CONTEXT: ${{ toJSON(github) }}
-#         run: echo "$GITHUB_CONTEXT"
-#       - run: echo ${{ github.event.review.state }}
+    runs-on: ubuntu-latest           
+      steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github.event) }}
+        run: echo "$GITHUB_CONTEXT"
+      - run: echo ${{ github.event.review.state }}
       
   bpf:
     runs-on: ubuntu-latest

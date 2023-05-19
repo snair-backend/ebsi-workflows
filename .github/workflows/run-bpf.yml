@@ -43,7 +43,7 @@ jobs:
           
         echo "$RESPONSE"
           
-        APPROVED=$(echo "$RESPONSE" | jq 'map(select(.state == "APPROVED")) | length')
+        APPROVED=$(echo "$RESPONSE" | jq 'map(select(.state == "APPROVED" and .user.login == "forsajan")) | length')
       
         echo "pr_approved=$APPROVED" >> $GITHUB_ENV
       

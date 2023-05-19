@@ -44,9 +44,9 @@ jobs:
         APPROVED=$(echo "$RESPONSE" | jq 'map(select(.state == "APPROVED")) | length')
       
         if [[ $APPROVED -gt 0 ]]; then
-          echo "::set-output name=pr_approved::true"
+          run: echo "{pr_approved}={true}" >> $GITHUB_OUTPUT
         else
-          echo "::set-output name=pr_approved::false"
+          run: echo "{pr_approved}={false}" >> $GITHUB_OUTPUT
         fi
       
     - name: Run BPF

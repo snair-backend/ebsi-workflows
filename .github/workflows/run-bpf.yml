@@ -59,4 +59,4 @@ jobs:
       uses: actions/github-script@v6 
       with:
         script: |
-          console.log('BPF ran successfully!!')
+          console.log('BPF ran successfully!!' + 'Branch =' + github.event.pull_request.base.ref + ', Was Approved' + steps.review_approval.outputs.pr_approved)

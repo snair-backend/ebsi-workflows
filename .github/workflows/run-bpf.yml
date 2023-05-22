@@ -13,6 +13,9 @@ on:
       - review_request_removed
       - synchronize     
     branches: [ 'develop', 'qa', 'staging', 'main' , 'master']
+  pull_request_review:
+    types:
+      - submitted
     
   
 jobs:

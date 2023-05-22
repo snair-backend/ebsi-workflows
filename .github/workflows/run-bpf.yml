@@ -16,6 +16,7 @@ on:
   pull_request_review:
     types:
       - submitted
+    branches: [ 'develop', 'qa', 'staging', 'main' , 'master']
     
   
 jobs:

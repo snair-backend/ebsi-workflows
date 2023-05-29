@@ -2,22 +2,10 @@ name: Run BPF
 
 on:
   pull_request_target:
-    types:
-      - opened 
-      - edited
-      - reopened      
+    types:     
       - assigned
-      - unassigned
-      - review_requested
-      - ready_for_review
-      - review_request_removed
       - synchronize     
     branches: [ 'develop', 'qa', 'staging', 'main' , 'master']
-  pull_request_review:
-    types:
-      - submitted
-    branches: [ 'develop', 'qa', 'staging', 'main' , 'master']
-    
   
 jobs:
   debug:
@@ -31,7 +19,7 @@ jobs:
       
   bpf:
     runs-on: ubuntu-latest
-    
+    if: contains(github.event.pull_request.assignees[*].login, 'forsajan')
     steps:
     - name: Checkout branch
       uses: actions/checkout@v3

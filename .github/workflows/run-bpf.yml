@@ -5,7 +5,7 @@ on:
     types:     
       - assigned
       - synchronize     
-    branches: [ 'develop', 'qa', 'staging', 'main' , 'master']
+    branches: [ 'develop', 'qa', 'staging']
   
 jobs:
   debug:
